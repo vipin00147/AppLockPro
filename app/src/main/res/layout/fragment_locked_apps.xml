@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data/>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <SearchView
+            android:id="@+id/search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="58dp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_total_packages"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Total Packeges : 100"
+            android:layout_marginHorizontal="15dp"
+            android:textStyle="bold" />
+
+        <com.example.applockpro.utils.bouncy_recyclerView.SimpleBouncyRecyclerView
+            android:id="@+id/rv_apps_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="15dp"
+            android:minHeight="400dp"
+            android:orientation="vertical"
+            android:overScrollMode="never"
+            app:endIndexOffset="0"
+            app:endOverscrollColor="@color/transperant"
+            app:friction="1.0"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:spanCount="13"
+            app:startIndexOffset="0"
+            app:startOverscrollColor="@color/transperant"
+            app:tension="1.0"
+            tools:listitem="@layout/item_app" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

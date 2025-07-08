@@ -39,6 +39,11 @@ class SettingsBottomSheet : BottomSheetBase<FragmentSettingsBottomSheetBinding>(
                     startActivity(intent)
                 }
 
+                btnLockedApps.setOnClickListener {
+                    val lockedAppsBottomSheet = LockedAppsBottomSheet()
+                    lockedAppsBottomSheet.show(getBaseActivity().supportFragmentManager, "")
+                }
+
                 btnSwitchBiomatric.setOnCheckedChangeListener { _, isChecked ->
 
                     if(isChecked) {

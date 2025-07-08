@@ -11,6 +11,7 @@ import android.view.accessibility.AccessibilityManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ViewDataBinding
+import com.example.applockpro.callback.HomeFragmentCallback
 import com.example.applockpro.service.AppLockService
 import com.example.applockpro.ui.activity.MainActivity
 
@@ -20,6 +21,8 @@ const val KEY_PASSWORD = "app_password"
 abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
 
     private var viewDataBinding: T? = null
+
+    var homeFragmentCallback : HomeFragmentCallback?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
 

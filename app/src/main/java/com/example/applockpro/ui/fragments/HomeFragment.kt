@@ -11,13 +11,14 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.applockpro.R
 import com.example.applockpro.adapter.AppListAdapter
 import com.example.applockpro.base.BaseFragment
+import com.example.applockpro.callback.HomeFragmentCallback
 import com.example.applockpro.databinding.FragmentHomeFragmentBinding
 import com.example.applockpro.model.AppInfo
 import com.example.applockpro.ui.bottomSheet.SettingsBottomSheet
 import com.example.applockpro.utils.AppLister
 import com.example.applockpro.utils.biomatricUtility.BiometricUtility.checkBioMetric
 
-class HomeFragment : BaseFragment<FragmentHomeFragmentBinding>() {
+class HomeFragment : BaseFragment<FragmentHomeFragmentBinding>(), HomeFragmentCallback {
 
     private var appListAdapter: AppListAdapter? = null
     private val installedApps = ArrayList<AppInfo>()
@@ -120,14 +121,17 @@ class HomeFragment : BaseFragment<FragmentHomeFragmentBinding>() {
         }
     }
 
-    private fun lockUnlockApp(isLocked : Boolean, appData : AppInfo) {
+    override fun lockUnlockApp(isLocked : Boolean, appData : AppInfo, notifyItem : Boolean) {
         if (isLocked) {
 
             val sharedPrefs = getBaseActivity().getSharedPreferences("AppLockPrefs", Context.MODE_PRIVATE)
             val lockedAppsSet = sharedPrefs.getStringSet("locked_apps", mutableSetOf()) ?: mutableSetOf()
             lockedAppsSet.add(appData.packageName)
             sharedPrefs.edit().putStringSet("locked_apps", lockedAppsSet).apply()
-            //appListAdapter?.lockUnlockApp(isLocked, appData)
+            if(notifyItem) {
+                appListAdapter?.lockUnlockApp(isLocked, appData)
+            }
+
 
         } else {
 
@@ -135,7 +139,9 @@ class HomeFragment : BaseFragment<FragmentHomeFragmentBinding>() {
             val lockedAppsSet = sharedPrefs.getStringSet("locked_apps", mutableSetOf()) ?: mutableSetOf()
             lockedAppsSet.remove(appData.packageName)
             sharedPrefs.edit().putStringSet("locked_apps", lockedAppsSet).apply()
-            //appListAdapter?.lockUnlockApp(isLocked, appData)
+            if(notifyItem) {
+                appListAdapter?.lockUnlockApp(isLocked, appData)
+            }
         }
     }
 
@@ -153,5 +159,11 @@ class HomeFragment : BaseFragment<FragmentHomeFragmentBinding>() {
     fun changePasswordScreen() {
         val settingsBottomSheet = SettingsBottomSheet()
         settingsBottomSheet.show(getBaseActivity().supportFragmentManager, "")
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        getBaseActivity().homeFragmentCallback = this
     }
 }
