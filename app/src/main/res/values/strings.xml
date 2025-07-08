@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">AppLockPro</string>
+    <string name="search_app">Search App</string>
+    <string name="accessibility_service_description">AppLockPro uses this service to detect when you open a locked app, allowing it to secure the app with a password. It does not collect any personal data.</string>
+    <string name="change_password">Change password</string>
+</resources>
